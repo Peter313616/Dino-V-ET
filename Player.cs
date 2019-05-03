@@ -21,6 +21,33 @@ namespace ETstrikesBack
             canvas = c;
             window = w;
             rectangle = new Rectangle();
+            rectangle.Height = 30;
+            rectangle.Width = 30;
+            rectangle.Fill = Brushes.Blue;
+            Canvas.SetLeft(rectangle, pos.X);
+            Canvas.SetTop(rectangle, pos.Y);
+            canvas.Children.Add(rectangle);
+        }
+        public void pMovement(Key key)
+        {
+            if(key == Key.Up)
+            {
+                pos.Y -= 30;
+            }
+            if(key == Key.Down)
+            {
+                pos.Y += 30;
+            }
+            if(key == Key.Left)
+            {
+                pos.X -= 30;
+            }
+            if(key == Key.Right)
+            {
+                pos.X += 30;
+            }
+            Canvas.SetLeft(rectangle, pos.X);
+            Canvas.SetTop(rectangle, pos.Y);
         }
     }
 }
