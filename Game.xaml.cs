@@ -26,6 +26,8 @@ namespace ETstrikesBack
         Point tempPoint = new Point();
         System.Windows.Threading.DispatcherTimer timer;
         Player player;
+        Alien alien;
+
         public Game()
         {
             InitializeComponent();
@@ -34,8 +36,11 @@ namespace ETstrikesBack
             timer.Tick +=  Timer_Tick;
             timer.Interval = new TimeSpan(0,0,0, 0, 1000 / 60);
             timer.Start();
-            player = new Player(test, canvas);
+            player = new Player(canvas);
+            player.pDraw();
             player.pMovement();
+            alien = new Alien(canvas);
+            alien.Draw();
         }
 
 
@@ -43,11 +48,7 @@ namespace ETstrikesBack
         private void Timer_Tick(object sender, EventArgs e)
         {
             player.pMovement();
-        }
-
-        private void key(object sender, KeyEventArgs e)
-        {
-
+            alien.eMovement();
         }
     }
 }
