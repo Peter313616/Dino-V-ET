@@ -17,6 +17,7 @@ namespace ETstrikesBack
 {
     public class Player
     {
+        public Bullet bullet;
         public Rectangle rectangle;
         public Canvas canvas;
         public Point pos = new Point(285, 500);
@@ -66,5 +67,17 @@ namespace ETstrikesBack
             Canvas.SetTop(rectangle, pos.Y);
             
         }
+         
+        public void pCombat()
+        {
+             if (Keyboard.IsKeyDown(Key.Space))
+             { 
+                bullet = new Bullet(canvas);
+                bullet.bFire();
+                // bullet.bMove();
+                isFired = true;
+             }
+        }       
+
     }
 }
