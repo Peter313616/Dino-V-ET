@@ -21,9 +21,13 @@ namespace ETstrikesBack
         public int enemyCount = 15;
         double enemySpeed = 1;
         Canvas canvas;
-        double[] Edges = new double[2];
         bool IsRight = true;
+
+        public Rectangle bullet;
+        public Point bPoint = new Point();
         public Point[] enemyPos = new Point[15];
+        bool isFired = false;
+        Random random = new Random();
 
         public Alien (Canvas c)
         {
@@ -46,15 +50,6 @@ namespace ETstrikesBack
                     Canvas.SetLeft(sprites[counter], enemyPos[counter].X);
                     Canvas.SetTop(sprites[counter], enemyPos[counter].Y);
                     canvas.Children.Add(sprites[counter]);
-                    if (Edges[0] > enemyPos[counter].X)
-                    {
-                        Edges[0] = enemyPos[counter].X;
-                    }
-                    else if (Edges[1] < enemyPos[counter].X)
-                    {
-                        Edges[1] = enemyPos[counter].X;
-                    }
-
                     counter++;
                 }
             }
@@ -62,7 +57,7 @@ namespace ETstrikesBack
 
         public void eMovement()
         {
-            if (enemyPos.Max(enemyPos => enemyPos.X) > 550)
+            if (enemyPos.Max(enemyPos => enemyPos.X) > 545)
             {
                 IsRight = false;
                 for (int i = 0; i < enemyCount; i++)
@@ -100,6 +95,61 @@ namespace ETstrikesBack
                 }
             }
 
+        }
+
+        public void eCombat()
+        {
+            if (isFired == false)
+            {
+                int pickColumn = random.Next(0, 5);
+                bullet = new Rectangle();
+                bullet.Height = 20;
+                bullet.Width = 10;
+                bullet.Fill = Brushes.Red;
+                for (int i = pickColumn; i != pickColumn - 1; i++)
+                {
+                    if (i == 5)
+                    {
+                        i = 0;
+                    }
+                    if (sprites[i + 10].Visibility != Visibility.Collapsed)
+                    {
+                        bPoint.X = enemyPos[i + 10].X + 15;
+                        bPoint.Y = enemyPos[i + 10].Y + 30;
+                        Canvas.SetTop(bullet, bPoint.Y);
+                        Canvas.SetLeft(bullet, bPoint.X);
+                        i = pickColumn - 2;
+                    }
+                    else if (sprites[i + 5].Visibility != Visibility.Collapsed)
+                    {
+                        bPoint.X = enemyPos[i + 5].X + 15;
+                        bPoint.Y = enemyPos[i + 5].Y + 30;
+                        Canvas.SetTop(bullet, bPoint.Y);
+                        Canvas.SetLeft(bullet, bPoint.X);
+                        i = pickColumn - 2;
+                    }
+                    else if (sprites[i].Visibility != Visibility.Collapsed)
+                    {
+                        bPoint.X = enemyPos[i].X + 15;
+                        bPoint.Y = enemyPos[i].Y + 30;
+                        Canvas.SetTop(bullet, bPoint.Y);
+                        Canvas.SetLeft(bullet, bPoint.X);
+                        i = pickColumn - 2;
+                    }
+                }
+                canvas.Children.Add(bullet);
+                isFired = true;
+            }
+            else if (isFired == true)
+            {
+                if (bPoint.Y > 570)
+                {
+                    canvas.Children.Remove(bullet);
+                    isFired = false;
+                }
+                bPoint.Y += 8;
+                Canvas.SetTop(bullet, bPoint.Y);
+            }
         }
     }
 }
