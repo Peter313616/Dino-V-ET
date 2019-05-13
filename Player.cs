@@ -21,11 +21,21 @@ namespace ETstrikesBack
         public Canvas canvas;
         public Point pos = new Point(285, 500);
         public int pSpeed = 4;
+        public int Lives = 3;
+
+        public Rectangle bullet;
+        public Point bPoint = new Point(0, 0);
+        public int bSpeed = 8;
+        public bool isFired = false;
+        public bool DidHit = false;
         public Player(Canvas c)
         {
             canvas = c;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void pDraw()
         {
             rectangle = new Rectangle();
@@ -69,6 +79,34 @@ namespace ETstrikesBack
             Canvas.SetLeft(rectangle, pos.X);
             Canvas.SetTop(rectangle, pos.Y);
             
+        }
+
+        public void pCombat()
+        {
+            if (Keyboard.IsKeyDown(Key.Space) && isFired == false)
+            {
+                bullet = new Rectangle();
+                bullet.Height = 20;
+                bullet.Width = 10;
+                bullet.Fill = Brushes.Green;
+                bPoint.X = pos.X + 10;
+                bPoint.Y = pos.Y - 18;
+                Canvas.SetTop(bullet, bPoint.Y);
+                Canvas.SetLeft(bullet, bPoint.X);
+                canvas.Children.Add(bullet);
+                isFired = true;
+                DidHit = false;
+            }
+            else if (isFired == true)
+            {
+                if (bPoint.Y < 0)
+                {
+                    canvas.Children.Remove(bullet);
+                    isFired = false;
+                }
+                bPoint.Y -= bSpeed;
+                Canvas.SetTop(bullet, bPoint.Y);
+            }
         }
     }
 }
