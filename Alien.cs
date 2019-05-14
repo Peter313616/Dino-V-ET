@@ -19,14 +19,17 @@ namespace ETstrikesBack
     {
         public Rectangle[] sprites = new Rectangle[15];
         public int enemyCount = 15;
-        double enemySpeed = 1;
+        double enemySpeed = 2;
         Canvas canvas;
         bool IsRight = true;
+        int Level = 0;
 
         public Rectangle bullet;
         public Point bPoint = new Point();
+        public Point bCooldown = new Point();
         public Point[] enemyPos = new Point[15];
         bool isFired = false;
+        bool AllDead = false;
         Random random = new Random();
 
         public Alien (Canvas c)
@@ -51,8 +54,10 @@ namespace ETstrikesBack
                     Canvas.SetTop(sprites[counter], enemyPos[counter].Y);
                     canvas.Children.Add(sprites[counter]);
                     counter++;
+                    enemySpeed = 2 + (Level / 4); 
                 }
             }
+            Level++;
         }
 
         public void eMovement()
@@ -111,30 +116,52 @@ namespace ETstrikesBack
                     if (i == 5)
                     {
                         i = 0;
+                        for (int x = 0; x < sprites.Length; x++)
+                        {
+                            if (sprites[x].Visibility != Visibility.Collapsed)
+                            {
+                                AllDead = false;
+                            }
+                        }
+                        if (AllDead)
+                        {
+                            Draw();
+                            AllDead = false;
+                        }
+                        else
+                        {
+                            AllDead = true;
+                        }
                     }
                     if (sprites[i + 10].Visibility != Visibility.Collapsed)
                     {
                         bPoint.X = enemyPos[i + 10].X + 15;
                         bPoint.Y = enemyPos[i + 10].Y + 30;
+                        bCooldown.Y = 120 + 30;
                         Canvas.SetTop(bullet, bPoint.Y);
                         Canvas.SetLeft(bullet, bPoint.X);
                         i = pickColumn - 2;
+                        AllDead = false;
                     }
                     else if (sprites[i + 5].Visibility != Visibility.Collapsed)
                     {
                         bPoint.X = enemyPos[i + 5].X + 15;
                         bPoint.Y = enemyPos[i + 5].Y + 30;
+                        bCooldown.Y = 120 + 30;
                         Canvas.SetTop(bullet, bPoint.Y);
                         Canvas.SetLeft(bullet, bPoint.X);
                         i = pickColumn - 2;
+                        AllDead = false;
                     }
                     else if (sprites[i].Visibility != Visibility.Collapsed)
                     {
                         bPoint.X = enemyPos[i].X + 15;
                         bPoint.Y = enemyPos[i].Y + 30;
+                        bCooldown.Y = 120 + 30;
                         Canvas.SetTop(bullet, bPoint.Y);
                         Canvas.SetLeft(bullet, bPoint.X);
                         i = pickColumn - 2;
+                        AllDead = false;
                     }
                 }
                 canvas.Children.Add(bullet);
@@ -142,12 +169,13 @@ namespace ETstrikesBack
             }
             else if (isFired == true)
             {
-                if (bPoint.Y > 570)
+                if (bCooldown.Y > 570)
                 {
                     canvas.Children.Remove(bullet);
                     isFired = false;
                 }
-                bPoint.Y += 8;
+                bPoint.Y += 10;
+                bCooldown.Y += 10;
                 Canvas.SetTop(bullet, bPoint.Y);
             }
         }
