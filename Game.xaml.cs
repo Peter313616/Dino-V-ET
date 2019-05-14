@@ -25,6 +25,7 @@ namespace ETstrikesBack
         System.Windows.Threading.DispatcherTimer timer;
         Player player;
         Alien alien;
+        Powerup powerup;
         int respawnTimer = 0;
         bool IsDead = false;
 
@@ -37,12 +38,17 @@ namespace ETstrikesBack
             timer.Interval = new TimeSpan(0,0,0, 0, 1000 / 60);
             timer.Start();
             player = new Player(canvas);
+            powerup = new Powerup(canvas)
             player.pDraw();
             player.pMovement();
             alien = new Alien(canvas);
             alien.Draw();
         }
-
+        
+        public void pToggle()
+        {
+            powerup.pUpToggle();
+        }
 
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -51,6 +57,9 @@ namespace ETstrikesBack
             alien.eMovement();
             player.pCombat();
             alien.eCombat();
+            if(powerup.toggle == true){
+            powerup.pUpMovement();
+            }
 
             if (alien.bPoint.X <= player.pos.X + 30 && alien.bPoint.X >= player.pos.X - 10
                 && alien.bPoint.Y <= player.pos.Y + 30 && alien.bPoint.Y >= player.pos.Y
@@ -103,4 +112,78 @@ namespace ETstrikesBack
         
         }
     }
+    
+    public enum pUp { oneUp, fastShip, slowAlien, fastBullets}
+    public class Powerup
+    {
+        
+        Canvas canvas;
+        public bool toggle;
+        int tCounter;
+        Rectangle r;
+        Random random = new Random();
+        int selected;
+        public pUp p;
+        public Powerup(Canvas c)
+        {
+            canvas = c;
+        }
+
+        public void pUpToggle()
+        {
+            if (tCounter == 0 || tCounter % 2 == 0)
+            {
+                toggle = true;
+                tCounter++;
+            }
+            else
+            {
+                toggle = false;
+                tCounter++;
+            }
+        }
+
+        public void pUpMovement()
+        {
+            r = new Rectangle();
+            r.Height = 20;
+            r.Width = 30;
+            selected = random.Next(1, 4);
+
+            if (selected == 1)
+            {
+                p = pUp.oneUp;
+            }
+            else if (selected == 2)
+            {
+                p = pUp.fastShip;
+            }
+            else if (selected == 3)
+            {
+                p = pUp.fastBullets;
+            }
+            else if(selected == 4)
+            {
+                p = pUp.slowAlien;
+            }
+            
+            if(p == pUp.oneUp)
+            {
+                //rectangle is the one up sprite
+            }
+            else if(p == pUp.fastShip)
+            {
+
+            }
+            else if(p == pUp.fastBullets)
+            {
+
+            }
+            else if(p == pUp.slowAlien)
+            {
+
+            }
+            // do code here to fill rectangle with sprite when we get sprites
+        }
+    } 
 }
