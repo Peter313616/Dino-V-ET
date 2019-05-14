@@ -10,5 +10,6 @@
         <Button x:Name="btnPlay" Content="Play Game" Click="BtnPlay_Click"/>
         <Button x:Name="btnScores" Content="See High Scores" Click="BtnScores_Click" Canvas.Top="44"/>
         <Button x:Name="btnQuit" Content="quit" Click="BtnQuit_Click" Canvas.Left="10" Canvas.Top="102"/>
+        <Button x:Name="btnPuP" Content="Power ups are: " Click="btnPuP_Click" Canvas.Top="145"/>
     </Canvas>
 </Window>
