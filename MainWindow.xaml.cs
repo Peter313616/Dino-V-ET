@@ -40,5 +40,10 @@ namespace ETstrikesBack
             Game g = new Game();
             g.ShowDialog();
         }
+        private void btnPuP_Click(object sender, RoutedEventArgs e)
+        {
+            Game g = new Game();
+            g.pToggle();
+        }
     }
 }
