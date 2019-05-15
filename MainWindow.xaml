@@ -7,9 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Canvas>
-        <Button x:Name="btnPlay" Content="Play Game" Click="BtnPlay_Click"/>
-        <Button x:Name="btnScores" Content="See High Scores" Click="BtnScores_Click" Canvas.Top="44"/>
-        <Button x:Name="btnQuit" Content="quit" Click="BtnQuit_Click" Canvas.Left="10" Canvas.Top="102"/>
-        <Button x:Name="btnPuP" Content="Power ups are: " Click="btnPuP_Click" Canvas.Top="145"/>
+        <Button x:Name="btnPlay" Content="Play Game" Click="BtnPlay_Click"FontFamily="Impact" FontSize="24" Background="Gold"
+                Height="127" Width="389" Canvas.Top="432" Canvas.Left="10"/>
+            
+        <Button x:Name="btnScores" Content="See High Scores" Click="BtnScores_Click" Canvas.Top="44"FontFamily="Impact" FontSize="24" Background="Aqua"
+                Canvas.Top="432" Height="127" Width="178" Canvas.Left="404/>
+            
+        <Button x:Name="btnQuit" Content="quit" Click="BtnQuit_Click" FontFamily="Impact" FontSize="24" Background="Red"
+                Canvas.Left="498" Height="63" Width="84" Canvas.Top="10"/>
+            
+        <Button x:Name="btnPuP" Content="Power ups are: " Click="btnPuP_Click" FontFamily="Impact" FontSize="24" Background="HotPink" 
+                Canvas.Top="388" Height="39" Canvas.Left="404" Width="178"/>
+            
+        <Label x:Name="lblInstructions" Content="Arrow keys to move, space to shoot" Background="Black" Foreground="White" FontFamily="Impact" FontSize="24"
+               Canvas.Left="10" Canvas.Top="388" Width="389" />
+            
+        <Label x:Name="lblTitle" Content="ET Strikes Back" FontFamily="Impact" FontSize="50" Background="Black" Foreground="White"
+               Canvas.Left="130"/>
     </Canvas>
 </Window>
