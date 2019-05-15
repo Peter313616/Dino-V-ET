@@ -43,6 +43,14 @@ namespace ETstrikesBack
             player.pMovement();
             alien = new Alien(canvas);
             alien.Draw();
+            
+            Rectangle r = new Rectangle();
+            BitmapImage bi = new BitmapImage(new Uri("ETBackground.png", UriKind.Relative));
+            ImageBrush img = new ImageBrush(bi);
+            r.Fill = img;
+            r.Height = 600;
+            r.Width = 600;
+            canvas.Children.Insert(0, r);
         }
         
         public void pToggle()
