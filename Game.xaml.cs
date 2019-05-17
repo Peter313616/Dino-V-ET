@@ -26,6 +26,7 @@ namespace ETstrikesBack
         Player player;
         Alien alien;
         Powerup powerup;
+        HighScores highScores;
         int respawnTimer = 0;
         bool IsDead = false;
 
@@ -43,6 +44,8 @@ namespace ETstrikesBack
             player.pMovement();
             alien = new Alien(canvas);
             alien.Draw();
+            highScores = new HighScores();
+            highScores.getHighScores();
             
             Rectangle r = new Rectangle();
             BitmapImage bi = new BitmapImage(new Uri("ETBackground.png", UriKind.Relative));
@@ -57,7 +60,14 @@ namespace ETstrikesBack
         {
             powerup.pUpToggle();
         }
-
+        
+        public void GameOver()
+        {
+            MessageBox.Show("Game Over");
+            MainWindow m = new MainWindow();
+            Close();
+            m.ShowDialog();
+        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -112,12 +122,34 @@ namespace ETstrikesBack
                     && player.bPoint.Y >= alien.enemyPos[i].Y - 20 && player.bPoint.Y <= alien.enemyPos[i].Y + 30
                     && alien.sprites[i].Visibility != Visibility.Collapsed && player.DidHit == false)
                  {
+                    Score++;
                     alien.sprites[i].Visibility = Visibility.Collapsed;
                     canvas.Children.Remove(player.bullet);
                     player.DidHit = true;
                  }
             }
-        
+            bool DeadRow = true;
+            if (alien.enemyPos[10].Y >= 500)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int x = 0; x < 5; x++)
+                    {
+                        if (alien.enemyPos[x + 10 - i * 5].Y >= 500 &&
+                            alien.sprites[x + 10 - i * 5].Visibility != Visibility.Collapsed)
+                        {
+                            DeadRow = false;
+                            x = 5;
+                            i = 3;
+                        }
+                    }
+                }
+            }
+            if (DeadRow == false || player.Lives == 0)
+            {
+                highScores.addHighScore(Score);
+                GameOver();
+            }
         }
     }
     
