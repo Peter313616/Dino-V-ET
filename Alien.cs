@@ -47,14 +47,16 @@ namespace ETstrikesBack
                     sprites[counter] = new Rectangle();
                     sprites[counter].Height = 30;
                     sprites[counter].Width = 40;
-                    sprites[counter].Fill = Brushes.Black;
+                    BitmapImage bi = new BitmapImage(new Uri("GreenAlien2.png", UriKind.Relative));
+                    ImageBrush img = new ImageBrush(bi);
+                    sprites[counter].Fill = img;
                     enemyPos[counter].X = x * 70 + 72;
                     enemyPos[counter].Y = y * 50 + 20;
                     Canvas.SetLeft(sprites[counter], enemyPos[counter].X);
                     Canvas.SetTop(sprites[counter], enemyPos[counter].Y);
                     canvas.Children.Add(sprites[counter]);
                     counter++;
-                    enemySpeed = 2 + (Level / 4); 
+                    enemySpeed = 2 + (Level / 4);
                 }
             }
             Level++;
