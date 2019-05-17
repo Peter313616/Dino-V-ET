@@ -48,7 +48,7 @@ namespace ETstrikesBack
             highScores.getHighScores();
             
             Rectangle r = new Rectangle();
-            BitmapImage bi = new BitmapImage(new Uri("ETBackground.png", UriKind.Relative));
+            BitmapImage bi = new BitmapImage(new Uri("BackgroundET.png", UriKind.Relative));
             ImageBrush img = new ImageBrush(bi);
             r.Fill = img;
             r.Height = 600;
@@ -103,18 +103,24 @@ namespace ETstrikesBack
                 }
                 if (respawnTimer % 10 == 0)
                 {
-                    player.rectangle.Fill = Brushes.Blue;
+                    player.rectangle.Visibility = Visibility.Visible;
+                    BitmapImage bi = new BitmapImage(new Uri("Harold.png", UriKind.Relative));
+                    ImageBrush img = new ImageBrush(bi);
+                    player.rectangle.Fill = img;
                 }
                 else if (respawnTimer % 10 == 5)
                 {
-                    player.rectangle.Fill = Brushes.White;
+                    player.rectangle.Visibility = Visibility.Hidden;
                 }
             }
             else if (respawnTimer == 100)
             {
                 IsDead = false;
                 respawnTimer = 0;
-                player.rectangle.Fill = Brushes.Blue;
+                BitmapImage bi = new BitmapImage(new Uri("Harold.png", UriKind.Relative));
+                ImageBrush img = new ImageBrush(bi);
+                player.rectangle.Fill = img;
+                player.rectangle.Visibility = Visibility.Visible;
             }
             for (int i = 0; i < 15; i++)
             {
