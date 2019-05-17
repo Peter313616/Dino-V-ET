@@ -39,9 +39,11 @@ namespace ETstrikesBack
         public void pDraw()
         {
             rectangle = new Rectangle();
-            rectangle.Height = 30;
-            rectangle.Width = 30;
-            rectangle.Fill = Brushes.Blue;
+            rectangle.Height = 45;
+            rectangle.Width = 45;
+            BitmapImage bi = new BitmapImage(new Uri("Harold.png", UriKind.Relative));
+            ImageBrush img = new ImageBrush(bi);
+            rectangle.Fill = img;
             canvas.Children.Add(rectangle);
         }
 
